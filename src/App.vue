@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Container>
-      <ChatWindow>
+      <ChatWindow v-on:sendMessage="send">
         <ChatMessage 
           v-for="(message, i) in messages" 
           v-bind:key="i"
@@ -39,6 +39,17 @@ export default {
         .then( (resp)=>{
           this.messages = resp.data
         } )
+    },
+    send(obj){
+      this.axios({
+        method: 'POST',
+        url: 'http://37.77.104.246/api/chat/sendmessage.php',
+        data: obj
+      }).then(
+        ()=>{
+          this.getMessages();
+        }
+      )
     }
   },
   mounted(){

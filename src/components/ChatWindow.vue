@@ -10,18 +10,35 @@
         type="text"
         placeholder="Ваш никнейм..."
         class="chat-send-name-field"
+        v-model="author"
       />
       <input
         type="text"
         placeholder="Сообщение..."
         class="chat-send-message-field"
+        v-model="text"
       />
-      <button>
+      <button @click="$emit('sendMessage', {
+        'author': author,
+        'text' : text
+      })">
         <img src="/img/send.png" />
       </button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'ChatWindow',
+  data() {
+    return {
+      author: '',
+      text: ''
+    }
+  }
+}
+</script>
 
 <style>
 .chat-window {
